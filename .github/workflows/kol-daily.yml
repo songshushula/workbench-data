@@ -57,6 +57,14 @@ jobs:
             git push
           fi
 
+      # App 读的是 jsDelivr 镜像（raw.githubusercontent.com 在国内不通）。
+      # jsDelivr 对 @main 分支有约 12 小时缓存，这里主动刷一下，保证当天就能看到新数据。
+      - name: 刷新 jsDelivr 缓存
+        if: always()
+        run: |
+          curl -s --max-time 30 "https://purge.jsdelivr.net/gh/songshushula/workbench-data@main/data/kol.json" || true
+          echo "已请求刷新缓存"
+
       - name: 显示结果摘要
         if: always()
         run: |
