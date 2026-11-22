@@ -1,0 +1,63 @@
+name: kol-daily
+
+# 北京时间每天 08:00 = UTC 00:00
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  # 允许在 Actions 页面手动点 Run workflow
+  workflow_dispatch:
+  # 首次推代码就自动跑一次；data/ 的提交不会再次触发，避免死循环
+  push:
+    branches: [main]
+    paths-ignore:
+      - "data/**"
+
+# 防止两次运行撞车
+concurrency:
+  group: kol-daily
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    # 机器人自己的提交不再触发
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 准备 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安装依赖
+        run: pip install --quiet feedparser requests
+
+      - name: 抓取汇总
+        run: python kol-daily/kol_daily.py
+        continue-on-error: false
+
+      - name: 提交 data/kol.json
+        run: |
+          if [ ! -f data/kol.json ]; then
+            echo "没有生成 data/kol.json，跳过提交（旧数据保持不动）"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/kol.json
+          if git diff --staged --quiet; then
+            echo "内容没有变化，跳过提交"
+          else
+            git commit -m "chore: 更新博主汇总 $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+
+      - name: 显示结果摘要
+        if: always()
+        run: |
+          test -f data/kol.json && python -c "import json;d=json.load(open('data/kol.json',encoding='utf-8'));print('生成时间',d.get('generated_at'),'| 条目',d.get('count'));[print(' ','OK' if f.get('ok') else 'FAIL',f.get('author'),f.get('items'),f.get('error') or '') for f in d.get('feeds',[])]" || echo "data/kol.json 不存在"
