@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-22T21:27:49+08:00",
-  "date": "2026-11-22",
+  "generated_at": "2026-11-23T12:56:18+08:00",
+  "date": "2026-11-23",
   "count": 10,
   "feeds": [
     {
@@ -12,6 +12,14 @@
     }
   ],
   "items": [
+    {
+      "title": "派早报：Anthropic 研究员宣称用 Claude 证明黎曼猜想",
+      "url": "https://sspai.com/post/119418",
+      "published": "2026-11-23T07:34:27+08:00",
+      "summary": "Anthropic 研究员宣称用 Claude 证明黎曼猜想 OpenAI 公布反蒸馏举措 黄仁勋据称将攻击下属作为管理方式 GTA 6 首日销售额近 40 亿美元 特斯拉升级 FSD，推出实景渲染功能 AMD 股票被做空 看看就行的简讯 少数派的近期动态 你可能错过的好文章 查看全文",
+      "author": "少数派",
+      "platform": "少数派"
+    },
     {
       "title": "从深圳到上海，少数派的共创故事还在继续",
       "url": "https://sspai.com/post/119318",
@@ -81,14 +89,6 @@
       "url": "https://sspai.com/prime/story/system-app-protection-override-macos-27-3",
       "published": "2026-11-19T15:34:11+08:00",
       "summary": "[......] 查看全文 本文为会员文章，出自 《单篇文章》 ，订阅后可阅读全文。",
-      "author": "少数派",
-      "platform": "少数派"
-    },
-    {
-      "title": "徒步旅行指南 | 玉龙虎跳峡与天堂雨崩",
-      "url": "https://sspai.com/post/119039",
-      "published": "2026-11-19T10:58:08+08:00",
-      "summary": "Matrix首页推荐Matrix是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选Matrix最优质的文章，展示来自用户的最真实的体验和观点。文章代表作者个人观点 ... 查看全文",
       "author": "少数派",
       "platform": "少数派"
     }
